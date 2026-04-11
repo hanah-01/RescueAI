@@ -1,7 +1,30 @@
-def process_chat_message(message: str) -> str:
-    # Basic logic for integrating Gemma model down the line
+import requests
+
+OLLAMA_URL = "http://localhost:11434/api/generate"
+
+def ask_gemma(prompt: str) -> str:
+    res = requests.post(
+        OLLAMA_URL,
+        json={
+            "model": "gemma:2b",
+            "prompt": prompt,
+            "stream": False
+        }
+    )
+    return res.json()["response"]
+
+def process_chat_message(message: str, context: str = "") -> str:
+    system_prompt = """You are RescueAI, an offline disaster response assistant.
+
+Rules:
+- Give maximum 5 steps
+- Be short and practical
+- Focus on survival actions
+- No long explanations"""
     
-    # Process text using RAG
-    # Identify images via YOLO if applicable
-    
-    return f"Gemma (Mock Response): You said '{message}'. Currently running modular architecture."
+    if context:
+        full_prompt = f"{system_prompt}\n\nContext: {context}\n\nAnswer using this information.\nQuestion: {message}"
+    else:
+        full_prompt = f"{system_prompt}\n\nQuestion: {message}"
+        
+    return ask_gemma(full_prompt)
