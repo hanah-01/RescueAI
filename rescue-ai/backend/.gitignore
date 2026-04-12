@@ -21,3 +21,8 @@ Thumbs.db
 .env.*
 
 .vscode/
+
+data/
+temp/
+faiss_index.bin
+chunks.pkl

@@ -13,17 +13,26 @@ class ChatRequest(BaseModel):
 async def chat_endpoint(request: ChatRequest):
     context_formatted = retrieve(request.message)
 
-    prompt = f"""You are RescueAI, an offline disaster response assistant.      
+    prompt = f"""You are a disaster response assistant.
 
-Rules:
-- Give maximum 5 steps
-- Be short and practical
-- Focus on survival actions
-- No long explanations
-
-Context: 
+CONTEXT:
 {context_formatted}
-Question: {request.message}"""
+USER QUESTION: {request.message}
+
+TASK:
+1. Identify the disaster
+2. Explain the danger
+3. Give 3 clear actions
+
+Use ONLY the given context.
+If unsure, say "uncertain".
+
+Answer in this format:
+
+Disaster:
+Danger:
+Actions:
+"""
     
     advice = gemma.generate(prompt)
     return {"reply": advice}
