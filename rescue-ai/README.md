@@ -4,9 +4,7 @@
 
 Rescue AI is a production-grade, multimodal disaster response platform designed for real-time triage, situational awareness, and actionable guidance. Built with a modular microservice architecture, it leverages state-of-the-art open AI models for computer vision, Large Language Models(LLMs), and Retrieval-Augmented Generation (RAG).
 
-<p align="center">
-  <img src="assets/architecture.png" alt="Architecture Diagram" width="750">
-</p>
+![Architecture Diagram](./assets/architecture.png)
 
 ## Architecture Overview
 - **Frontend:** React + TypeScript for a responsive, real-time user interface.
